@@ -1,0 +1,48 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import numpy.random as rd
+import matplotlib.mlab as mlab
+import scipy.stats as st
+
+# サンプル用パラメータ
+n = 10000
+sample_size = 10000
+
+# サンプルごとの平均、分散を算出する関数
+def sample_to_mean_var(sample):
+    mean = np.mean(sample)
+    var = np.var(sample)
+    return [mean, var]
+
+# 平均、分散のヒストグラムを描画する関数
+def plot_mean_var(stats, dist_name=""):
+    mu = stats[:,0]
+    var = stats[:,1]
+    bins = 40
+
+    # 標本平均のヒストグラム
+    plt.figure(figsize=(7,5))
+    plt.hist(mu, bins=bins, normed=True, color="plum")
+    plt.title("mu from %s distribution"%(dist_name))
+    plt.show()
+
+    # 標本分散のヒストグラム
+    plt.figure(figsize=(7, 5))
+    plt.hist(mu, bins=bins, normed=True, color="lighblue")
+    plt.title("var from %s distribution" % (dist_name))
+    plt.show()
+
+def plot_dist(data, bins, title = ""):
+    plt.figure(figsize=(7,5))
+    plt.title(title)
+    plt.hist(data, bins, color="lightgreen", normed=True)
+    plt.show()
+
+lam = 0.1
+x = rd.exponential(1./lam, size=sample_size)
+plot_dist(x, 100, "exponential dist")
+
+# 指数分布をたくさん生成して標本平均、標本分散のヒストグラムを描画
+lam = 0.1
+stats = np.array([sample_to_mean_var(rd.exponential(1./lam, size=sample_size)) for i in range(n)])
+plot_mean_var(stats, dist_name="exponential")
