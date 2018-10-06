@@ -1,0 +1,186 @@
+#4.2 数値
+print(123 + 222) #加算
+
+print(1.5 * 4) #浮動小数点数の乗算
+
+print(2 ** 100) #2の100乗
+
+#それ以外の数値計算
+import math #mathパッケージのインポート
+
+print(math.pi) #円周率の表示
+
+print(math.sqrt(85)) #85の平方根の表示
+
+import random #random（乱数発生用の）パッケージのインポート
+
+print(random.random()) #乱数の生成
+print(random.choice([1, 2, 3, 4])) #リストに格納した数値からランダムで１つ選択
+print(random.sample([1, 2, 3, 4], 2)) #リストに格納した数値からランダムで２つ選択
+
+#4.3.1 シーケンスの操作
+S = 'Spam' #変数の定義
+print(len(S)) #文字列の長さの確認
+print(S[0]) #インデックス"0"を指定すると、先頭の要素が抽出できる
+print(S[1]) #インデックス"1"を指定すると、２番目の要素が抽出できる
+print(S[-1]) #インデックス"-1"を指定すると、末尾の要素が抽出できる
+print(S[-2]) #インデックス"-2"を指定すると、末尾から２番目の要素が抽出できる
+print(S[len(S)-1]) #末尾の要素を抽出する
+#print(S[len(S)]) #５番目の要素は存在しないため、エラーで返却される。
+
+"""
+スライシングの構文
+i番目からj-1番目の要素を取り出す
+a[i:j]
+（例）
+a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+2番目から7(8-1)番目の要素を取り出す
+a[2:8] #[2, 3, 4, 5, 6, 7]
+始点を省略すると0番目から
+a[:6] #[0, 1, 2, 3, 4, 5]
+終点を省略すると要素の一番最後まで
+a[7:] #[7, 8, 9]
+"""
+print(S[1:])
+print(S[1:3])
+print(S[0:3])
+print(S[:3])
+print(S[:-1])
+print(S[:])
+
+#連結と繰り返し
+print(S + 'xyz') #Sにxyzを連結する
+print(S*8) #Sを8回繰り返す
+
+#4.3.2 不変性
+# S[0] = 'z' #一度作成したオブジェクトは不変性を持つので、エラーが発生する (処理がここで止まるため、以降は実施されない）
+S = 'z' + S[1:] #新たな文字列を作成し、元の変数に代入
+print(S)
+S = 'S' + S[1:] #Sを元に戻します
+print(S)
+
+#4.3.3 文字列に固有のメソッド
+print(S.find('pa')) #指定の文字列を探す 該当する文字列がある場合は１を返却する
+print(S.find('test')) #指定の文字列を探す 該当する文字列がない場合は-1を返却する
+print(S.replace('pa', 'XYZ')) #指定の文字列を変換する ※もとの文字列自体は変換されません
+print(S) #元文字列には何も変更は加わりません
+
+#文字列を区切り文字で分割する
+line = 'aaa,bbb,ccccc,dd'
+print(line.split(',')) #lineを','で区切って分割して、リストにする
+print(line)
+
+print(S.upper()) #Sを大文字に変換
+print(S.lower()) #Sを小文字に変換
+
+print(S.isalpha()) #英字かどうかの判定
+
+#4.4.1 シーケンス操作
+L = [123, 'spam', 1.23] #3つの要素からなるリストを作成。方はすべて異なる
+print(L) #Lに含まれている要素の確認
+print(len(L)) #リストの構成要素の数
+
+print(L[0]) #インデクシング
+print(L[:-1]) #スライシング（結果として新しいリストが戻される）
+print(L + [4, 5, 6]) #連結
+print(L) #元のリストは変更されていないことを確認
+
+#4.4.2 リスト固有のメソッド
+L.append('NI') #末尾に要素を追加してリストを長くする
+print(L) #元のリストに要素が追加されていることを確認
+L.pop(2) #3番目の要素を削除する
+print(L)
+del L[:-1] #スライシングを使用して削除（最後の要素以外を全部削除）
+print(L)
+L.clear() #すべての要素を削除
+print(L)
+
+L = [123, 'spam', 1.23]
+M = ['bb', 'aa', 'cc']
+M.sort() #リストを昇順にソートします
+print(M)
+M.reverse() #リストを降順にソートします
+print(M)
+N = [1, 5, 3, 2, 6, 8, 2, 12, 5, 435]
+N.sort() #数字のリストも昇順にソートできます
+print(N)
+N.reverse() #数字のリストも降順にソートできます
+print(N)
+
+#4.4.4 ネスト
+M = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]] #3*3のマトリクスをリストのネストで作成
+print(M)
+print(M[1]) #行2を出力
+print(M[1][2]) #行2の3番目の要素を出力
+
+#4.4.5 リスト内包表記
+col2 = [row[1] for row in M] # 2列目の要素を取り出す
+print(col2)
+
+print([row[1] + 1 for row in M]) #2列目の要素に1を加えて出力する
+print([row[1] for row in M if row[1] % 2 == 0]) #2列目の要素のうち偶数のみ出力する
+
+diag = [M[i][i] for i in [0, 1, 2]]
+print(diag) #対角線上の要素を出力する
+
+doubles = [c * 2 for c in 'spam']
+print(doubles) #文字列中の文字を繰り返して出力
+
+#4.5 ディクショナリ
+'''
+ディクショナリはここの要素に「キー」が付与されます。
+特定の要素にアクセスする際には、インデックスではなく、キーを手掛かりにします。
+'''
+D = {'food': 'Spam', 'quantity': 4, 'color': 'pink'}
+print(D['food'])
+D['quantity'] += 1 #quantityに1加える
+print(D['quantity'])
+print(D) #Dの中身も変わっていることを確認
+
+D['name'] = 'Bob' #存在しないキーを指定して値を代入します
+D['job'] = 'dev'
+D['age'] = 40
+
+print(D) #Dの中身にname、job、ageが追加されていることを確認します
+
+#4.5.2 ネスト
+rec = {'name': {'first': 'Bob', 'last': 'Smith'},
+       'job': {'dev', 'mgr'},
+       'age': 40.5} #複雑な情報を格納
+print(rec)
+print(rec['name'])
+print(rec['name']['last']) #nameのlastに格納されている情報を出力
+print(rec['job'])
+rec['job'].add('janitor') #jobに対応するリストを拡張して上書き
+print(rec)
+
+#4.5.3 キーのソート：forループ
+'''
+for文復習。
+乱数を20個生成して、それを出力する。
+'''
+'''
+import random
+from numpy.random import *
+num = randint(0, 100, 20)
+for i in num:
+    print(i)
+'''
+
+D = {'a': 1, 'b': 2, 'c': 3}
+print(D)
+Ks = D.keys() #キーのリストを取得
+print(Ks) #値のリストを出力
+
+#4.7 ファイル
+f = open('data.txt', 'w') #出力モードで新規作成
+f.write('Hello\n') #\nは改行のための正規表現
+f.write('world\n')
+f.close()
+
+f = open('data.txt') #第二引数はデフォルトでは'r'（Read only）
+bytes = f.read() #ファイル全体を読み込む
+print(bytes)
+print(bytes.split()) #ファイルの内容を文字列のリストとして出力
